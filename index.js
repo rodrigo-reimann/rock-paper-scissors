@@ -1,9 +1,3 @@
-const startButton = document.getElementById('startButton');
-startButton.addEventListener('click', () => {
-    playGame();
-})
-
-
 function getComputerChoice () {
     const strings = ['rock', 'paper', 'scissors'];
     const randomIndex = Math.floor(Math.random() * strings.length);
@@ -29,6 +23,14 @@ function playGame() {
 
     for (let i = 0; i < 5; i++) {
         const playerSelection = prompt(`Round ${i + 1}: Enter your choice (rock, paper, or scissors):`).toLowerCase();
+
+        // Validate the player's input
+        if (!["rock", "paper", "scissors"].includes(playerSelection)) {
+            alert("Invalid input! Please enter 'rock', 'paper', or 'scissors'.");
+            i--;
+            continue; // Exit the function if input is invalid
+        }
+
         const computerSelection = getComputerChoice();
         let result = playRound(playerSelection, computerSelection);
 
@@ -42,6 +44,9 @@ function playGame() {
     }
 
     document.getElementById('results').textContent = `Player score: ${playerScore}, Computer score: ${computerScore}`
-}
+};
 
-console.log(playGame());
+const startButton = document.getElementById('startButton');
+startButton.addEventListener('click', () => {
+    playGame();
+});
